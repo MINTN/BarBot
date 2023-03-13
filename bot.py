@@ -334,6 +334,7 @@ async def process_choose_category_back(message: types.Message, state: FSMContext
     await message.answer(LEXICON['exit_text'], reply_markup=start_keyboard)
     await bot.delete_message(message.chat.id,  message.message_id)
     async with state.proxy() as data:
+        await bot.delete_message(message.chat.id, data['goods_menu_message'])
         await bot.delete_message(message.chat.id, data['category_choose_message'])
     await FSMFillForm.menu_state.set()
 
