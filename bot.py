@@ -15,12 +15,13 @@ from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery
 
-BOT_TOKEN = '5900039195:AAEusv1L2V7M3jAqX27qAC2LX7r-nbQBZa0'
+with open ("key", 'r') as key: 
+    BOT_TOKEN = key.read()
 
 # Инициализируем хранилище (создаем экземпляр класса RedisStorage2)
-#storage: RedisStorage2 = RedisStorage2("10.1.201.57", 6379, db=1)
+storage: RedisStorage2 = RedisStorage2("192.168.0.102", 6379, db=1)
 
-storage: MemoryStorage = MemoryStorage()
+#storage: MemoryStorage = MemoryStorage()
 
 
 ingedients_callback: dict = {}
@@ -99,26 +100,14 @@ yes_or_no = ReplyKeyboardMarkup(resize_keyboard=True)
 yes_or_no.row(KeyboardButton('Да✅'))
 yes_or_no.row(KeyboardButton('Нет❌'))
 #---------------------------------------------------------
+
+#---------------------------------------------------------
 # ------------ Клавиатура c кнопкой закрыть --------------
 #---------------------------------------------------------
 close_keyboard = InlineKeyboardMarkup()
 close_keyboard.add(InlineKeyboardButton(LEXICON['close_btn'], callback_data=LEXICON['close_callback']))
 #---------------------------------------------------------
 
-# -------------- Функция счетчик -------------
-def coun():
-    def init():
-        return 0
-    k = init()
-    while True:
-        val = (yield k)
-        if val=='restart':
-            k = -1
-        elif val != 'restart' and val != None:
-            k = int(val)
-        else:
-            k += 1 
-#----------------------------------------------
 def process_create_keyboard(ingedients_list, ingredient_callback):
     inline_kb1 = InlineKeyboardMarkup()
     kb_len = len(ingedients_list)

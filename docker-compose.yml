@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  barbot:
+    image: barbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
